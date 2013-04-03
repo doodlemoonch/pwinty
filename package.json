@@ -1,0 +1,26 @@
+{
+	"name": "pwinty",
+	"version": "0.0.1",
+	"author": "Matt Tortolani",
+	"description": "A pwinty api library for Node.JS",
+	"repository": {
+	    "type": "git",
+	    "url": "https://github.com/doodlemoonch/pwinty"
+	},
+	"bugs": {
+		"url":	"https://github.com/doodlemoonch/pwinty/issues"
+	},
+	"keywords": [
+	    "api",
+	    "pwinty",
+		"photo printing"
+	],
+	"main": "./index.js",
+	"dependencies": {
+		"restler": "*"
+	},
+	"engines": {
+		"node": ">=0.4.0"
+	},
+	"license": "MIT"
+}
