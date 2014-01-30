@@ -1,26 +1,35 @@
 {
-	"name": "pwinty",
-	"version": "0.0.3",
-	"author": "Matt Tortolani",
-	"description": "A pwinty api library for Node.JS",
-	"repository": {
-	    "type": "git",
-	    "url": "https://github.com/doodlemoonch/pwinty"
-	},
-	"bugs": {
-		"url":	"https://github.com/doodlemoonch/pwinty/issues"
-	},
-	"keywords": [
-	    "api",
-	    "pwinty",
-		"photo printing"
-	],
-	"main": "./index.js",
-	"dependencies": {
-		"restler": "3.1.0"
-	},
-	"engines": {
-		"node": ">=0.8.0"
-	},
-	"license": "MIT"
+    "name": "pwinty",
+    "version": "0.2.0",
+    "author": "Matt Tortolani",
+    "description": "A pwinty api library for Node.JS",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/doodlemoonch/pwinty"
+    },
+    "bugs": {
+        "url":  "https://github.com/doodlemoonch/pwinty/issues"
+    },
+    "keywords": [
+        "api",
+        "pwinty",
+        "photo printing"
+    ],
+    "main": "./index.js",
+    "scripts": {
+        "test": "mocha -R min test -R nyan --recursive test"
+    },
+    "dependencies": {
+        "restler": "3.1.0"
+    },
+    "devDependencies": {
+        "sinon": "*",
+        "rewire": "*",
+        "mocha": "*",
+        "should": "*"
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "license": "MIT"
 }
