@@ -2,18 +2,13 @@
 
 # Pwinty api for Node.js
 
-[Pwinty API for Node.js](https://npmjs.org/package/pwinty) is a library for communicating with the [Pwinty API](http://www.pwinty.com/overview.html).
+[Pwinty API for Node.js](https://npmjs.org/package/pwinty) is a promise based library for communicating with the [Pwinty API](http://www.pwinty.com/overview.html).
 
 ## Installation
 
 ```bash
 $ npm install pwinty
 ```
-
-## Features
-
-* Plain JavaScript
-* Lightweight, only one dependency ([request](https://npmjs.org/package/request))
 
 ## Quick Start
 

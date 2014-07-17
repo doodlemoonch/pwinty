@@ -20,7 +20,8 @@
     "test": "mocha test --reporter spec"
   },
   "dependencies": {
-    "request": "2.37.0"
+    "request-promise": "0.0.4",
+    "lodash": "2.4.1"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",

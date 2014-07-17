@@ -17,8 +17,20 @@ describe('Catalogue', function() {
             .get('/v2.1/Catalogue/GB/Pro')
             .reply(200, {'countryCode':'GB','country':'UNITED KINGDOM'});
 
-        pwinty.getCatalogue('GB', 'Pro', function (err, res) {
+        pwinty.getCatalogue('GB', 'Pro').then(function (res) {
             expect(res.countryCode).to.be('GB');
+            done();
+        });
+    });
+
+    it('handles errors on /Catalogue/{countryCode}/{qualityLevel}', function(done) {
+
+        nock('https://sandbox.pwinty.com:443')
+            .get('/v2.1/Catalogue/GB/Pro')
+            .reply(500);
+
+        pwinty.getCatalogue('GB', 'Pro').catch(function (statusCode) {
+            expect(statusCode).to.be(500);
             done();
         });
     });
