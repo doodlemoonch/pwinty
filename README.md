@@ -1,3 +1,5 @@
+[ ![Codeship Status for doodlemoonch/pwinty](https://codeship.io/projects/5a165770-f007-0131-06f7-4eb19103006a/status)](https://codeship.io/projects/27258)
+
 # Pwinty api for Node.js
 
 [Pwinty API for Node.js](https://npmjs.org/package/pwinty) is a library for communicating with the [Pwinty API](http://www.pwinty.com/overview.html).

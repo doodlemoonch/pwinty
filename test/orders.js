@@ -74,6 +74,16 @@ describe('Orders', function () {
 
     });
 
+    describe('.payOrder(id)', function () {
+
+        it('posts /Orders/id/Status with "AwaitingPayment"', function () {
+            var params = {id: 1234, status: 'AwaitingPayment'};
+            pwinty.payOrder(1234);
+            restlerMock.Service.prototype.post.should.have.been.calledWith('/Orders/1234/Status', { data: params });
+        });
+
+    });
+
     describe('.cancelOrder(id)', function () {
 
         it('posts /Orders/id/Status with "Cancelled"', function () {
@@ -89,7 +99,7 @@ describe('Orders', function () {
         it('posts /Orders/id/Photos with params', function () {
             var params = {id: 1234, type: '4x4'};
             pwinty.addPhoto(params);
-            restlerMock.Service.prototype.post.should.have.been.calledWith('/Orders/1234/Photos', { data: params });
+            restlerMock.Service.prototype.post.should.have.been.calledWith('/Orders/1234/Photos', { data: {type: '4x4'} });
         });
 
     });
