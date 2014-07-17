@@ -67,4 +67,41 @@ describe('Photos', function() {
         });
     });
 
+    describe('addPhotoToOrder', function () {
+
+        var mockPhoto = {
+            "id": 1483,
+            "type": "4x4",
+            "url": "photourl",
+            "copies": "2",
+            "sizing": "ShrinkToExactFit",
+            "priceToUser": "450"
+        };
+
+        it('adds a single photo to an order', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .post('/v2.1/Orders/1483/Photos', mockPhoto)
+                .reply(200, {"id": 1483});
+
+            pwinty.addPhotoToOrder(mockPhoto).then(function (res) {
+                expect(res.id).to.be(1483);
+                done();
+            });
+        });
+
+        it('handles errors', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .post('/v2.1/Orders/1483/Photos')
+                .reply(500);
+
+            pwinty.addPhotoToOrder(mockPhoto).catch(function (statusCode) {
+                expect(statusCode).to.be(500);
+                done();
+            });
+        });
+
+    });
+
 });
