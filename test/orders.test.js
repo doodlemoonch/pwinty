@@ -159,4 +159,31 @@ describe('Orders', function() {
         });
     });
 
+    describe('getOrderStatus', function () {
+
+        it('gets a specific order', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .get('/v2.1/Orders/1932/SubmissionStatus')
+                .reply(200, {"id": 1932, "isValid": false});
+
+            pwinty.getOrderStatus(1932).then(function (res) {
+                expect(res.isValid).to.be(false);
+                done();
+            });
+        });
+
+        it('handles errors', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .get('/v2.1/Orders/1932/SubmissionStatus')
+                .reply(500);
+
+            pwinty.getOrderStatus(1932).catch(function (statusCode) {
+                expect(statusCode).to.be(500);
+                done();
+            });
+        });
+    });
+
 });
