@@ -91,4 +91,32 @@ describe('Orders', function() {
 
     });
 
+    describe('updateOrder', function() {
+
+        it('updates an order', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .put('/v2.1/Orders/742', {"id": "742", "postalOrZipCode":"54321"})
+                .reply(200, {"id": 742});
+
+            pwinty.updateOrder({id: 742, postalOrZipCode: '54321'}).then(function (res) {
+                expect(res.id).to.be(742);
+                done();
+            });
+        });
+
+        it('handles errors', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .put('/v2.1/Orders/742')
+                .reply(500);
+
+            pwinty.updateOrder({id: 742, postalOrZipCode: '54321'}).catch(function (statusCode) {
+                expect(statusCode).to.be(500);
+                done();
+            });
+        });
+
+    });
+
 });
