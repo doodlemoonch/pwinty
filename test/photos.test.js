@@ -13,7 +13,7 @@ describe('Photos', function() {
         nock.disableNetConnect();
     });
 
-    describe('getPhoto', function () {
+    describe('getOrderPhoto', function () {
 
         it('gets specfic photo information from an order', function(done) {
 
@@ -21,7 +21,7 @@ describe('Photos', function() {
                 .get('/v2.1/Orders/1234/Photos/5678')
                 .reply(200, {"id":5678,"type":"4x6","url":"http://www.flickr.com/mytestphoto.jpg","status":"NotYetDownloaded","copies":"4","sizing":"Crop","priceToUser":214,"price":199,"md5Hash":"79054025255fb1a26e4bc422aef54eb4","previewUrl":"http://s3.amazonaws.com/anexampleurl","thumbnailUrl":"http://s3.amazonaws.com/anexamplethumbnailurl","attributes":{"frame_colour":"silver"}});
 
-            pwinty.getPhoto(1234, 5678).then(function (res) {
+            pwinty.getOrderPhoto(1234, 5678).then(function (res) {
                 expect(res.id).to.be(5678);
                 done();
             });
@@ -33,7 +33,34 @@ describe('Photos', function() {
                 .get('/v2.1/Orders/1234/Photos/5678')
                 .reply(500);
 
-            pwinty.getPhoto(1234, 5678).catch(function (statusCode) {
+            pwinty.getOrderPhoto(1234, 5678).catch(function (statusCode) {
+                expect(statusCode).to.be(500);
+                done();
+            });
+        });
+    });
+
+    describe('getOrderPhotos', function () {
+
+        it('gets order photos', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .get('/v2.1/Orders/1234/Photos')
+                .reply(200, [{"id":5678,"type":"4x6","url":"http://www.flickr.com/mytestphoto.jpg","status":"NotYetDownloaded","copies":"4","sizing":"Crop","priceToUser":214,"price":199,"md5Hash":"79054025255fb1a26e4bc422aef54eb4","previewUrl":"http://s3.amazonaws.com/anexampleurl","thumbnailUrl":"http://s3.amazonaws.com/anexamplethumbnailurl","attributes":{"frame_colour":"silver"}}]);
+
+            pwinty.getOrderPhotos(1234).then(function (res) {
+                expect(res.length).to.be(1);
+                done();
+            });
+        });
+
+        it('handles errors', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .get('/v2.1/Orders/1234/Photos')
+                .reply(500);
+
+            pwinty.getOrderPhotos(1234).catch(function (statusCode) {
                 expect(statusCode).to.be(500);
                 done();
             });
