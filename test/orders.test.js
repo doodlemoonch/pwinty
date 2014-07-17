@@ -2,6 +2,7 @@
 
 var nock = require('nock');
 var expect = require('expect.js');
+var unroll = require('unroll');
 
 describe('Orders', function() {
 
@@ -96,7 +97,7 @@ describe('Orders', function() {
         it('updates an order', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
-                .put('/v2.1/Orders/742', {"id": "742", "postalOrZipCode":"54321"})
+                .put('/v2.1/Orders/742', {"id": "742", "postalOrZipCode": "54321"})
                 .reply(200, {"id": 742});
 
             pwinty.updateOrder({id: 742, postalOrZipCode: '54321'}).then(function (res) {
@@ -117,6 +118,45 @@ describe('Orders', function() {
             });
         });
 
+    });
+
+    describe('updateOrderStatus', function() {
+
+        unroll('it updates an order status to #status', function(done, testArgs) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .put('/v2.1/Orders/742/Status', {"id": "742", "status": testArgs.status})
+                .reply(200);
+
+            pwinty.updateOrderStatus({id: 742, status: testArgs.status}).then(function (res) {
+                done();
+            });
+        },
+        [
+            ['status'],
+            ['Cancelled'],
+            ['AwaitingPayment'],
+            ['Submitted']
+        ]);
+
+        it('throws an error when trying to update to an invalid status', function (done) {
+
+            pwinty.updateOrderStatus({id: 742, status: 'Invalid'}).catch(function () {
+                done();
+            });
+        });
+
+        it('handles errors', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .put('/v2.1/Orders/742/Status')
+                .reply(500);
+
+            pwinty.updateOrderStatus({id: 742, status: 'AwaitingPayment'}).catch(function (statusCode) {
+                expect(statusCode).to.be(500);
+                done();
+            });
+        });
     });
 
 });

@@ -21,13 +21,15 @@
   },
   "dependencies": {
     "request-promise": "0.0.4",
-    "lodash": "2.4.1"
+    "lodash": "2.4.1",
+    "bluebird": "^2.2.2"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
     "mocha": "^1.20.1",
     "rewire": "^2.1.0",
-    "nock": "^0.42.1"
+    "nock": "^0.42.1",
+    "unroll": "0.0.2"
   },
   "engines": {
     "node": ">=0.8.0"
