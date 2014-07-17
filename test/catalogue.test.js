@@ -9,6 +9,7 @@ describe('Catalogue', function() {
 
     beforeEach(function (){
         pwinty = require('../lib/pwinty')('apiKey', 'merchantId');
+        nock.disableNetConnect();
     });
 
     it('makes a get request to /Catalogue/{countryCode}/{qualityLevel}', function(done) {

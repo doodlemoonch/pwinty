@@ -9,42 +9,86 @@ describe('Orders', function() {
 
     beforeEach(function (){
         pwinty = require('../lib/pwinty')('apiKey', 'merchantId');
+        nock.disableNetConnect();
     });
 
-    it('gets all orders', function(done) {
+    describe('getOrders', function () {
 
-        nock('https://sandbox.pwinty.com:443')
-            .get('/v2.1/Orders')
-            .reply(200, [{"id": 9144}, {"id": 9145}]);
+        it('gets all orders', function(done) {
 
-        pwinty.getOrders().then(function (res) {
-            expect(res.length).to.be(2);
-            done();
+            nock('https://sandbox.pwinty.com:443')
+                .get('/v2.1/Orders')
+                .reply(200, [{"id": 9144}, {"id": 9145}]);
+
+            pwinty.getOrders().then(function (res) {
+                expect(res.length).to.be(2);
+                done();
+            });
+        });
+
+        it('gets a specific order', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .get('/v2.1/Orders/9146')
+                .reply(200, {"id": 9146});
+
+            pwinty.getOrders(9146).then(function (res) {
+                expect(res.id).to.be(9146);
+                done();
+            });
+        });
+
+        it('handles errors', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .get('/v2.1/Orders')
+                .reply(500);
+
+            pwinty.getOrders().catch(function (statusCode) {
+                expect(statusCode).to.be(500);
+                done();
+            });
         });
     });
 
-    it('gets a specific order', function(done) {
+    describe('createOrder', function () {
 
-        nock('https://sandbox.pwinty.com:443')
-            .get('/v2.1/Orders/9146')
-            .reply(200, {"id": 9146});
+        var mockOrder = {
+            "address1": "742 Evergreen Terrace",
+            "postalOrZipCode": "12345",
+            "countryCode": "US",
+            "addressTownOrCity": "Springfield",
+            "recipientName": "Homer Simpson",
+            "stateOrCounty": "Oregon",
+            "payment": "InvoiceRecipient",
+            "destinationCountryCode": "GB",
+            "qualityLevel": "Pro"
+        };
 
-        pwinty.getOrders(9146).then(function (res) {
-            expect(res.id).to.be(9146);
-            done();
+        it('creates an order', function(done) {
+
+            nock('https://sandbox.pwinty.com:443')
+                .post('/v2.1/Orders', {"address1":"742 Evergreen Terrace","postalOrZipCode":"12345","countryCode":"US","addressTownOrCity":"Springfield","recipientName":"Homer Simpson","stateOrCounty":"Oregon","payment":"InvoiceRecipient","destinationCountryCode":"GB","qualityLevel":"Pro"})
+                .reply(200, {"id": 742});
+
+            pwinty.createOrder(mockOrder).then(function (res) {
+                expect(res.id).to.be(742);
+                done();
+            });
         });
-    });
 
-    it('handles errors', function(done) {
+        it('handles errors', function(done) {
 
-        nock('https://sandbox.pwinty.com:443')
-            .get('/v2.1/Orders')
-            .reply(500);
+            nock('https://sandbox.pwinty.com:443')
+                .post('/v2.1/Orders')
+                .reply(500);
 
-        pwinty.getOrders().catch(function (statusCode) {
-            expect(statusCode).to.be(500);
-            done();
+            pwinty.createOrder().catch(function (statusCode) {
+                expect(statusCode).to.be(500);
+                done();
+            });
         });
+
     });
 
 });
