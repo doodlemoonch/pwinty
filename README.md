@@ -2,7 +2,7 @@
 
 # Pwinty api for Node.js
 
-[Pwinty API for Node.js](https://npmjs.org/package/pwinty) is a library for communicating with the [Pwinty API](http://www.pwinty.com/overview.html).
+[Pwinty API for Node.js](https://npmjs.org/package/pwinty) is a promise based library for communicating with the [Pwinty API](http://www.pwinty.com/overview.html).
 
 ## Installation
 
@@ -10,29 +10,30 @@
 $ npm install pwinty
 ```
 
-## Features
-
-* Plain JavaScript
-* Lightweight, only one dependency ([restler](https://npmjs.org/package/restler))
-
 ## Quick Start
 
-First, add the module to your project:
+Init pwinty with your api credentials and host (sandbox/live):
 
 ```js
-var Pwinty = require('pwinty');
-```
-
-Second, init pwinty with your api credentials:
-
-```js
-var pwinty = new Pwinty(cfg.pwinty.useSandbox, cfg.pwinty.merchantId, cfg.pwinty.apiKey);
+var pwinty = require('../lib/pwinty')('apiKey', 'merchantId', 'https://sandbox.pwinty.com:443');
 ```
 
 Then access the pwinty methods:
 
+Create an order
 ```js
-pwinty.getOrder(1234).on('complete', function (order) {
-    console.log(order);
-});
+var photo = {
+    id: 1483,
+    type: "4x4",
+    url: "photourl",
+    copies: "2",
+    sizing: "ShrinkToExactFit",
+    priceToUser: "450"
+};
+var orderParams = {};
+pwinty.createOrder(orderParams).then(function (order) {
+    pwinty.addPhotoToOrder(photo).then(function() {
+
+    });
+})
 ```
