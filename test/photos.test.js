@@ -15,29 +15,18 @@ describe('Photos', function() {
 
     describe('getOrderPhoto', function () {
 
-        it('makes a GET request to /Orders/:orderId/Photos/:photoId', function(done) {
+        it('makes a GET request to /Orders/:orderId/Photos/:photoId', function (done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1234/Photos/5678')
                 .reply(200, {"id":5678,"type":"4x6","url":"http://www.flickr.com/mytestphoto.jpg","status":"NotYetDownloaded","copies":"4","sizing":"Crop","priceToUser":214,"price":199,"md5Hash":"79054025255fb1a26e4bc422aef54eb4","previewUrl":"http://s3.amazonaws.com/anexampleurl","thumbnailUrl":"http://s3.amazonaws.com/anexamplethumbnailurl","attributes":{"frame_colour":"silver"}});
 
-            pwinty.getOrderPhoto(1234, 5678).then(function (res) {
+            pwinty.getOrderPhoto(1234, 5678, function (err, res) {
                 expect(res.id).to.be(5678);
                 done();
             });
         });
 
-        it('handles errors from /Orders/:orderId/Photos/:photoId', function(done) {
-
-            nock('https://sandbox.pwinty.com:443')
-                .get('/v2.1/Orders/1234/Photos/5678')
-                .reply(500);
-
-            pwinty.getOrderPhoto(1234, 5678).catch(function (statusCode) {
-                expect(statusCode).to.be(500);
-                done();
-            });
-        });
     });
 
     describe('deleteOrderPhoto', function () {
@@ -48,50 +37,28 @@ describe('Photos', function() {
                 .delete('/v2.1/Orders/1234/Photos/5678')
                 .reply(200, {"id":5678,"type":"4x6","url":"http://www.flickr.com/mytestphoto.jpg","status":"NotYetDownloaded","copies":"4","sizing":"Crop","priceToUser":214,"price":199,"md5Hash":"79054025255fb1a26e4bc422aef54eb4","previewUrl":"http://s3.amazonaws.com/anexampleurl","thumbnailUrl":"http://s3.amazonaws.com/anexamplethumbnailurl","attributes":{"frame_colour":"silver"}});
 
-            pwinty.deleteOrderPhoto(1234, 5678).then(function (res) {
+            pwinty.deleteOrderPhoto(1234, 5678, function (err,res) {
                 expect(res.id).to.be(5678);
                 done();
             });
         });
 
-        it('handles errors from /Orders/:orderId/Photos/:photoId', function(done) {
-
-            nock('https://sandbox.pwinty.com:443')
-                .delete('/v2.1/Orders/1234/Photos/5678')
-                .reply(500);
-
-            pwinty.deleteOrderPhoto(1234, 5678).catch(function (statusCode) {
-                expect(statusCode).to.be(500);
-                done();
-            });
-        });
     });
 
     describe('getOrderPhotos', function () {
 
-        it('makes a GET request to /Orders/:id/Photos', function(done) {
+        it('makes a GET request to /Orders/:id/Photos', function (done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1234/Photos')
                 .reply(200, [{"id":5678,"type":"4x6","url":"http://www.flickr.com/mytestphoto.jpg","status":"NotYetDownloaded","copies":"4","sizing":"Crop","priceToUser":214,"price":199,"md5Hash":"79054025255fb1a26e4bc422aef54eb4","previewUrl":"http://s3.amazonaws.com/anexampleurl","thumbnailUrl":"http://s3.amazonaws.com/anexamplethumbnailurl","attributes":{"frame_colour":"silver"}}]);
 
-            pwinty.getOrderPhotos(1234).then(function (res) {
+            pwinty.getOrderPhotos(1234, function (err, res) {
                 expect(res.length).to.be(1);
                 done();
             });
         });
 
-        it('handles errors from /Orders/:id/Photos', function(done) {
-
-            nock('https://sandbox.pwinty.com:443')
-                .get('/v2.1/Orders/1234/Photos')
-                .reply(500);
-
-            pwinty.getOrderPhotos(1234).catch(function (statusCode) {
-                expect(statusCode).to.be(500);
-                done();
-            });
-        });
     });
 
     describe('addPhotoToOrder', function () {
@@ -105,26 +72,14 @@ describe('Photos', function() {
             "priceToUser": "450"
         };
 
-        it('makes a POST request to /Orders/:id/Photos', function(done) {
+        it('makes a POST request to /Orders/:id/Photos', function (done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders/1483/Photos', mockPhoto)
                 .reply(200, {"id": 1483});
 
-            pwinty.addPhotoToOrder(mockPhoto).then(function (res) {
+            pwinty.addPhotoToOrder(mockPhoto, function (err, res) {
                 expect(res.id).to.be(1483);
-                done();
-            });
-        });
-
-        it('handles errors from /Orders/:id/Photos', function(done) {
-
-            nock('https://sandbox.pwinty.com:443')
-                .post('/v2.1/Orders/1483/Photos')
-                .reply(500);
-
-            pwinty.addPhotoToOrder(mockPhoto).catch(function (statusCode) {
-                expect(statusCode).to.be(500);
                 done();
             });
         });
@@ -142,26 +97,14 @@ describe('Photos', function() {
             "priceToUser": "450"
         };
 
-        it('makes a POST request to /Orders/:id/Photos with an array of photos', function(done) {
+        it('makes a POST request to /Orders/:id/Photos with an array of photos', function (done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders/1483/Photos', [mockPhoto, mockPhoto])
                 .reply(200, {"id": 1483});
 
-            pwinty.addPhotosToOrder([mockPhoto, mockPhoto]).then(function (res) {
+            pwinty.addPhotosToOrder([mockPhoto, mockPhoto], function (err, res) {
                 expect(res.id).to.be(1483);
-                done();
-            });
-        });
-
-        it('handles errors from /Orders/:id/Photos', function(done) {
-
-            nock('https://sandbox.pwinty.com:443')
-                .post('/v2.1/Orders/1483/Photos')
-                .reply(500);
-
-            pwinty.addPhotosToOrder([mockPhoto, mockPhoto]).catch(function (statusCode) {
-                expect(statusCode).to.be(500);
                 done();
             });
         });

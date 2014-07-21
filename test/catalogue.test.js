@@ -7,31 +7,19 @@ describe('Catalogue', function() {
 
     var pwinty;
 
-    beforeEach(function (){
+    beforeEach(function () {
         pwinty = require('../lib/pwinty')('apiKey', 'merchantId');
         nock.disableNetConnect();
     });
 
-    it('makes a GET request to /Catalogue/{countryCode}/{qualityLevel}', function(done) {
+    it('makes a GET request to /Catalogue/{countryCode}/{qualityLevel}', function (done) {
 
         nock('https://sandbox.pwinty.com:443')
             .get('/v2.1/Catalogue/GB/Pro')
             .reply(200, {'countryCode':'GB','country':'UNITED KINGDOM'});
 
-        pwinty.getCatalogue('GB', 'Pro').then(function (res) {
+        pwinty.getCatalogue('GB', 'Pro', function (err, res) {
             expect(res.countryCode).to.be('GB');
-            done();
-        });
-    });
-
-    it('handles errors from /Catalogue/{countryCode}/{qualityLevel}', function(done) {
-
-        nock('https://sandbox.pwinty.com:443')
-            .get('/v2.1/Catalogue/GB/Pro')
-            .reply(500);
-
-        pwinty.getCatalogue('GB', 'Pro').catch(function (statusCode) {
-            expect(statusCode).to.be(500);
             done();
         });
     });
