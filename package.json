@@ -24,10 +24,10 @@
     "request": "2.37.0"
   },
   "devDependencies": {
-    "expect.js": "^0.3.1",
-    "mocha": "^1.20.1",
-    "rewire": "^2.1.0",
-    "nock": "^0.42.1",
+    "expect.js": "0.3.1",
+    "mocha": "1.20.1",
+    "rewire": "2.1.0",
+    "nock": "0.42.1",
     "unroll": "0.0.2"
   },
   "engines": {
