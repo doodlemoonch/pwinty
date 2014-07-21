@@ -15,7 +15,7 @@ describe('Orders', function() {
 
     describe('getOrders', function () {
 
-        it('gets all orders', function(done) {
+        it('makes a GET request to /Orders', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders')
@@ -27,7 +27,7 @@ describe('Orders', function() {
             });
         });
 
-        it('gets a specific order', function(done) {
+        it('makes a GET request to /Orders/:id', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/9146')
@@ -39,7 +39,7 @@ describe('Orders', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders')
@@ -66,7 +66,7 @@ describe('Orders', function() {
             "qualityLevel": "Pro"
         };
 
-        it('creates an order', function(done) {
+        it('makes a POST request to /Orders', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders', {"address1":"742 Evergreen Terrace","postalOrZipCode":"12345","countryCode":"US","addressTownOrCity":"Springfield","recipientName":"Homer Simpson","stateOrCounty":"Oregon","payment":"InvoiceRecipient","destinationCountryCode":"GB","qualityLevel":"Pro"})
@@ -78,7 +78,7 @@ describe('Orders', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders')
@@ -94,7 +94,7 @@ describe('Orders', function() {
 
     describe('updateOrder', function() {
 
-        it('updates an order', function(done) {
+        it('makes a PUT request to /Orders/:id', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .put('/v2.1/Orders/742', {"id": "742", "postalOrZipCode": "54321"})
@@ -106,7 +106,7 @@ describe('Orders', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .put('/v2.1/Orders/742')
@@ -122,7 +122,7 @@ describe('Orders', function() {
 
     describe('updateOrderStatus', function() {
 
-        unroll('it updates an order status to #status', function(done, testArgs) {
+        unroll('makes a PUT request to /Orders/:id/Status with #status', function(done, testArgs) {
 
             nock('https://sandbox.pwinty.com:443')
                 .put('/v2.1/Orders/742/Status', {"id": "742", "status": testArgs.status})
@@ -146,7 +146,7 @@ describe('Orders', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders/:id/Status', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .put('/v2.1/Orders/742/Status')
@@ -161,7 +161,7 @@ describe('Orders', function() {
 
     describe('getOrderStatus', function () {
 
-        it('gets a specific order', function(done) {
+        it('makes a GET request to /Orders/:id/SubmissionStatus', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1932/SubmissionStatus')
@@ -173,7 +173,7 @@ describe('Orders', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders/:id/SubmissionStatus', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1932/SubmissionStatus')

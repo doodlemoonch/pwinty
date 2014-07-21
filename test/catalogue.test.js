@@ -12,7 +12,7 @@ describe('Catalogue', function() {
         nock.disableNetConnect();
     });
 
-    it('makes a get request to /Catalogue/{countryCode}/{qualityLevel}', function(done) {
+    it('makes a GET request to /Catalogue/{countryCode}/{qualityLevel}', function(done) {
 
         nock('https://sandbox.pwinty.com:443')
             .get('/v2.1/Catalogue/GB/Pro')
@@ -24,7 +24,7 @@ describe('Catalogue', function() {
         });
     });
 
-    it('handles errors on /Catalogue/{countryCode}/{qualityLevel}', function(done) {
+    it('handles errors from /Catalogue/{countryCode}/{qualityLevel}', function(done) {
 
         nock('https://sandbox.pwinty.com:443')
             .get('/v2.1/Catalogue/GB/Pro')

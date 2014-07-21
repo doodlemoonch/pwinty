@@ -12,7 +12,7 @@ describe('Countries', function() {
         nock.disableNetConnect();
     });
 
-    it('makes a get request to /Country', function(done) {
+    it('makes a GET request to /Country', function(done) {
 
         nock('https://sandbox.pwinty.com:443')
             .get('/v2.1/Country')
@@ -24,7 +24,7 @@ describe('Countries', function() {
         });
     });
 
-    it('handles errors on /Country', function(done) {
+    it('handles errors from /Country', function(done) {
 
         nock('https://sandbox.pwinty.com:443')
             .get('/v2.1/Country')

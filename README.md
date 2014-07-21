@@ -15,13 +15,25 @@ $ npm install pwinty
 Init pwinty with your api credentials and host (sandbox/live):
 
 ```js
-var pwinty = require('../lib/pwinty')('apiKey', 'merchantId', 'host');
+var pwinty = require('../lib/pwinty')('apiKey', 'merchantId', 'https://sandbox.pwinty.com:443');
 ```
 
 Then access the pwinty methods:
 
+Create an order
 ```js
-pwinty.getCatalogue(countryCode, qualityLevel, function (error, response) {
-   console.log(response);
-});
+var photo = {
+    id: 1483,
+    type: "4x4",
+    url: "photourl",
+    copies: "2",
+    sizing: "ShrinkToExactFit",
+    priceToUser: "450"
+};
+var orderParams = {};
+pwinty.createOrder(orderParams).then(function (order) {
+    pwinty.addPhotoToOrder(photo).then(function() {
+
+    });
+})
 ```

@@ -15,7 +15,7 @@ describe('Photos', function() {
 
     describe('getOrderPhoto', function () {
 
-        it('gets specfic photo information from an order', function(done) {
+        it('makes a GET request to /Orders/:orderId/Photos/:photoId', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1234/Photos/5678')
@@ -27,7 +27,7 @@ describe('Photos', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders/:orderId/Photos/:photoId', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1234/Photos/5678')
@@ -42,7 +42,7 @@ describe('Photos', function() {
 
     describe('deleteOrderPhoto', function () {
 
-        it('gets specfic photo information from an order', function(done) {
+        it('makes a DELETE request to /Orders/:orderId/Photos/:photoId', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .delete('/v2.1/Orders/1234/Photos/5678')
@@ -54,7 +54,7 @@ describe('Photos', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders/:orderId/Photos/:photoId', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .delete('/v2.1/Orders/1234/Photos/5678')
@@ -69,7 +69,7 @@ describe('Photos', function() {
 
     describe('getOrderPhotos', function () {
 
-        it('gets order photos', function(done) {
+        it('makes a GET request to /Orders/:id/Photos', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1234/Photos')
@@ -81,7 +81,7 @@ describe('Photos', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders/:id/Photos', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .get('/v2.1/Orders/1234/Photos')
@@ -105,7 +105,7 @@ describe('Photos', function() {
             "priceToUser": "450"
         };
 
-        it('adds a single photo to an order', function(done) {
+        it('makes a POST request to /Orders/:id/Photos', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders/1483/Photos', mockPhoto)
@@ -117,7 +117,7 @@ describe('Photos', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders/:id/Photos', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders/1483/Photos')
@@ -142,7 +142,7 @@ describe('Photos', function() {
             "priceToUser": "450"
         };
 
-        it('adds multiple photos to an order', function(done) {
+        it('makes a POST request to /Orders/:id/Photos with an array of photos', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders/1483/Photos', [mockPhoto, mockPhoto])
@@ -154,7 +154,7 @@ describe('Photos', function() {
             });
         });
 
-        it('handles errors', function(done) {
+        it('handles errors from /Orders/:id/Photos', function(done) {
 
             nock('https://sandbox.pwinty.com:443')
                 .post('/v2.1/Orders/1483/Photos')
