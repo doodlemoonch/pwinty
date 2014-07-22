@@ -1,4 +1,4 @@
-[ ![Codeship Status for doodlemoonch/pwinty](https://codeship.io/projects/5a165770-f007-0131-06f7-4eb19103006a/status)](https://codeship.io/projects/27258)
+[ ![Travis CI status for doodlemoonch/pwinty](https://travis-ci.org/doodlemoonch/pwinty.svg?branch=v2)](https://travis-ci.org/doodlemoonch/pwinty)
 
 # Pwinty api for Node.js
 
