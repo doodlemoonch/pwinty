@@ -1,6 +1,6 @@
 {
   "name": "pwinty",
-  "version": "0.2.0",
+  "version": "2.0.0",
   "author": "Matt Tortolani",
   "description": "A pwinty api library for Node.JS",
   "repository": {

@@ -1,8 +1,8 @@
-[ ![Codeship Status for doodlemoonch/pwinty](https://codeship.io/projects/5a165770-f007-0131-06f7-4eb19103006a/status)](https://codeship.io/projects/27258)
+[ ![Travis CI status for doodlemoonch/pwinty](https://travis-ci.org/doodlemoonch/pwinty.svg?branch=v2)](https://travis-ci.org/doodlemoonch/pwinty)
 
 # Pwinty api for Node.js
 
-[Pwinty API for Node.js](https://npmjs.org/package/pwinty) is a promise based library for communicating with the [Pwinty API](http://www.pwinty.com/overview.html).
+[Pwinty API for Node.js](https://npmjs.org/package/pwinty) is a library for communicating with the [Pwinty API](http://www.pwinty.com/overview.html). It uses standard callbacks, you can easily wrap in a promises/generator library of your choosing.
 
 ## Installation
 
@@ -22,18 +22,20 @@ Then access the pwinty methods:
 
 Create an order
 ```js
-var photo = {
-    id: 1483,
-    type: "4x4",
-    url: "photourl",
-    copies: "2",
-    sizing: "ShrinkToExactFit",
-    priceToUser: "450"
-};
 var orderParams = {};
-pwinty.createOrder(orderParams).then(function (order) {
-    pwinty.addPhotoToOrder(photo).then(function() {
+pwinty.createOrder(orderParams, function (err, order) {
 
+    var photo = {
+        id: order.id,
+        type: "4x4",
+        url: "photourl",
+        copies: "2",
+        sizing: "ShrinkToExactFit",
+        priceToUser: "450"
+    };
+
+    pwinty.addPhotoToOrder(photo, function (err, order) {
+        console.log('photo added');
     });
 })
 ```
