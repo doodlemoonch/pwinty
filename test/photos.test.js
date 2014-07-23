@@ -64,7 +64,6 @@ describe('Photos', function() {
     describe('addPhotoToOrder', function () {
 
         var mockPhoto = {
-            "id": 1483,
             "type": "4x4",
             "url": "photourl",
             "copies": "2",
@@ -78,7 +77,7 @@ describe('Photos', function() {
                 .post('/v2.1/Orders/1483/Photos', mockPhoto)
                 .reply(200, {"id": 1483});
 
-            pwinty.addPhotoToOrder(mockPhoto, function (err, res) {
+            pwinty.addPhotoToOrder(1483, mockPhoto, function (err, res) {
                 expect(res.id).to.be(1483);
                 done();
             });
@@ -89,7 +88,6 @@ describe('Photos', function() {
     describe('addPhotosToOrder', function () {
 
         var mockPhoto = {
-            "id": 1483,
             "type": "4x4",
             "url": "photourl",
             "copies": "2",
@@ -103,7 +101,7 @@ describe('Photos', function() {
                 .post('/v2.1/Orders/1483/Photos', [mockPhoto, mockPhoto])
                 .reply(200, {"id": 1483});
 
-            pwinty.addPhotosToOrder([mockPhoto, mockPhoto], function (err, res) {
+            pwinty.addPhotosToOrder(1483, [mockPhoto, mockPhoto], function (err, res) {
                 expect(res.id).to.be(1483);
                 done();
             });

@@ -26,7 +26,6 @@ var orderParams = {};
 pwinty.createOrder(orderParams, function (err, order) {
 
     var photo = {
-        id: order.id,
         type: "4x4",
         url: "photourl",
         copies: "2",
@@ -34,7 +33,7 @@ pwinty.createOrder(orderParams, function (err, order) {
         priceToUser: "450"
     };
 
-    pwinty.addPhotoToOrder(photo, function (err, order) {
+    pwinty.addPhotoToOrder(order.id, photo, function (err, order) {
         console.log('photo added');
     });
 })
