@@ -91,10 +91,10 @@ describe('Orders', function() {
 
     describe('updateOrderStatus', function() {
 
-        unroll('makes a PUT request to /Orders/:id/Status with #status', function (done, testArgs) {
+        unroll('makes a POST request to /Orders/:id/Status with #status', function (done, testArgs) {
 
             nock('https://sandbox.pwinty.com:443')
-                .put('/v2.1/Orders/742/Status', {"id": "742", "status": testArgs.status})
+                .post('/v2.1/Orders/742/Status', {"id": "742", "status": testArgs.status})
                 .reply(200);
 
             pwinty.updateOrderStatus({id: 742, status: testArgs.status}, function (err, res) {
@@ -131,7 +131,7 @@ describe('Orders', function() {
                 done();
             });
         });
-        
+
     });
 
 });
