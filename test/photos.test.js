@@ -98,7 +98,7 @@ describe('Photos', function() {
         it('makes a POST request to /Orders/:id/Photos with an array of photos', function (done) {
 
             nock('https://sandbox.pwinty.com:443')
-                .post('/v2.1/Orders/1483/Photos', [mockPhoto, mockPhoto])
+                .post('/v2.1/Orders/1483/Photos/Batch', [mockPhoto, mockPhoto])
                 .reply(200, {"id": 1483});
 
             pwinty.addPhotosToOrder(1483, [mockPhoto, mockPhoto], function (err, res) {
