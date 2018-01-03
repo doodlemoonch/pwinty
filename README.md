@@ -15,7 +15,7 @@ $ npm install pwinty
 Init pwinty with your api credentials and host (sandbox/live):
 
 ```js
-var pwinty = require('../lib/pwinty')('apiKey', 'merchantId', 'https://sandbox.pwinty.com:443');
+var pwinty = require('../lib/pwinty')('merchantId', 'apiKey', 'https://sandbox.pwinty.com:443');
 ```
 
 Then access the pwinty methods:
